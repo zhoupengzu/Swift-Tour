@@ -1,0 +1,31 @@
+四、类和对象(注意点)
+1、init方法中调用super的时机
+如果本类中有非可选属性没有赋值，则先给本类这些属性初始化，然后调用父类；
+父类属性必须放在调用父类初始化方法之后
+2、get和set方法
+不同于OC，set时有个隐藏参数newValue，表示要设置的值,具体如下：
+    var sideLength: Double = 0.0;
+    init(sideLength: Double,name:String) {
+        self.sideLength = sideLength;
+        super.init(name: name);
+        self.numberOfSides = 3;
+    }
+    var perimeter: Double{
+        get {
+            return 3.0 * self.sideLength;
+        }
+        set {
+            self.sideLength = newValue / 3.0;
+        }
+    }
+3、willSet和didSet
+有点儿类似于观察者，将属性的赋值分解成了赋值前和赋值后，每次值的改变都会调用(除了初始化时不会调用)，因此可以在这里做一些操作。
+willSet有隐藏值newValue，即新值，而didSet没有，
+var set: Double{
+        willSet{
+            print("will set");
+        }
+        didSet{
+            print("did set");
+        }
+    }
