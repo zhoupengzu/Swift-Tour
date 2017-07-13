@@ -1,0 +1,73 @@
+二、控制流
+用if和switch作为条件控制，for-in、while和repeat-while作为循环控制，主体部分的括号是需要的（单行不能省略？）
+1、for-in
+class For_In_Loop01 {
+    static func for_in_loop(){
+        let arr = [1,2,3,4,5];
+        for temp in arr{
+            print(temp);
+        }
+        let dic = [1:"1",2:"2",3:"3"];
+        for (key,value) in dic{
+            print("key:\(key) value:\(value)");
+        }
+    }
+}
+
+2、if
+（1）正常使用
+let score = 90;
+if score > 100{...}else{...}
+(2) 和let或者var组合使用（用于可空变量，即用“？”修饰的）
+a、当某个变量可能为空时，在判断的时候可以用来表示，如果条件为真，则会赋值给该变量，如下面的name，
+b、let 和 var修饰唯一不同之处在于一个是可变一个是不可变而已
+var optionalString: String?="Hello";
+        print(optionalString == nil);  //false
+
+        var optionalName: String? = "John Appleseed";
+        var greeting = "Hello!";
+        if let name = optionalName{
+            greeting += name;
+        }else{
+            print("name is nil");
+        }
+        if var name = optionalName{
+            greeting += name;
+        }else{
+            print("name is nil");
+        }
+        if optionalName == nil {
+
+        }
+        print(greeting);
+（3）双问号“？？”----空合运算符
+语法：a = b ?? c
+  b是可选的，如果b为空，则会将c赋值给a，否则就把b给a，但是c不能为可选的
+  let nickName: String? = nil;
+        let fullName: String = "John Appleseed";
+//        let fullName: String? = "John Appleseed";  //会打印Hi!Optional("John Appleseed")，而且编译器会报警告
+        let infoGreeting = "Hi!\(fullName)";
+        print(infoGreeting);
+   
+（4）switch
+a、比起以往，它支持任何类型做匹配，而且不只是值的匹配，可以做逻辑判断，也可以做区间筛选，元祖。。。
+b、不再需要break，同样的操作可以写在同一个case下
+let vegetable = "red pepper"
+switch vegetable {
+case "celery":
+    print("Add some raisins and make ants on a log.")
+case "cucumber", "watercress":
+    print("That would make a good tea sandwich.")
+case let x where x.hasSuffix("pepper"):
+    print("Is it a spicy \(x)?")
+default:
+    print("Everything tastes good in soup.")
+}
+
+（5）while
+和以往没什么不同
+（6）for，和以前完全不同(多步长增长怎么写？)
+a、“..<value”和“...value”，（闭、开）区间运算符
+前者不包括value，后者包括value
+b、错误使用
+for var i = 0;i < 10;i++{...}
