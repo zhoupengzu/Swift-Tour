@@ -1,0 +1,10 @@
+三、方法和闭包
+1、方法的语法：func 方法名（label 参数1:类型，label 参数2:类型）-> 返回类型{方法体}
+其中label可以省略，省略时label和参数名是相同的
+func greet(person: String, day: String) -> String {
+    return "Hello \(person), today is \(day)."
+}
+greet(person: "Bob", day: "Tuesday")
+2、方法可以被嵌套
+
+3、闭包
