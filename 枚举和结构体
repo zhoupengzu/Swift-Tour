@@ -1,0 +1,58 @@
+五、枚举和结构体
+1、枚举
+和OC不同，枚举可以有自己的方法、可以指定枚举类型（不仅仅支持整数）;
+获取当前枚举值可以调用rawValue属性
+enum Rank: Int{
+    case ace = 1
+    case two,three,four,five,six,seven,eight,nine,ten
+    case jack,queen,king
+    func simpleDescription() -> String{
+        switch self {
+        case .ace:
+            return "ace";
+        case .jack:
+            return "jack";
+        case .queen:
+            return "queen";
+        case .king:
+            return "king";
+        default:
+            return String(self.rawValue);
+        }
+    }
+    func compareRankValues(otherRank: Rank){
+        if self.rawValue > otherRank.rawValue{
+            print("The self is larger");
+        }else{
+            print("The others is larger");
+        }
+    }
+}
+***********
+enum ServerResponse {
+    case result(String, String)
+    case failure(String)
+}
+ 
+let success = ServerResponse.result("6:00 am", "8:09 pm")
+let failure = ServerResponse.failure("Out of cheese.")
+ 
+switch success {
+case let .result(sunrise, sunset):
+    print("Sunrise is at \(sunrise) and sunset is at \(sunset).")
+case let .failure(message):
+    print("Failure...  \(message)")
+}
+*******************
+
+2、结构体
+结构体和类基本相似，有方法，可以定义属性，有初始化方法，唯一不同的是，结构体是值引用，而类是对象引用
+struct Card {
+    var rank: Rank
+    var suit: Suit
+    func simpleDescription() -> String {
+        return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
+    }
+}
+let threeOfSpades = Card(rank: .three, suit: .spades)
+let threeOfSpadesDescription = threeOfSpades.simpleDescription()
