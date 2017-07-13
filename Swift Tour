@@ -7,3 +7,27 @@
   将要拼接的值直接用“\(变量)”拼接，如：
         let apples = 3
         let appleSummary = "I have \(apples) apples."
+3、三个双引号（“”“）
+	用三个双引号来展示多行字符串,但是最开始的三个和结束的三个双引号要单独成行,且通过“\n”切分成数组会发现，内容是自动添加了“\n”的，所以下面的内容数组个数是2
+	如：
+	class ThreeQuotes{
+    static let threeQuotes = """
+	hahahhahah
+	other line
+	""";
+    static func printThreeQuotes(){
+        let arr: Array = threeQuotes.components(separatedBy: "\n");
+        print(arr.count);  //2
+        print(threeQuotes);
+    }
+}
+4、数组和字典创建
+（1）数组和字典都直接用中括号"[]"创建
+var shoppingList = ["catfish", "water", "tulips", "blue paint"]
+shoppingList[1] = "bottle of water"
+ 
+var occupations = [
+    "Malcolm": "Captain",
+    "Kaylee": "Mechanic",
+]
+occupations["Jayne"] = "Public Relations"
