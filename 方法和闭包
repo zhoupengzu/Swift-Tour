@@ -8,3 +8,7 @@ greet(person: "Bob", day: "Tuesday")
 2、方法可以被嵌套
 
 3、闭包
+numbers.map({ (number: Int) -> Int in
+    let result = 3 * number
+    return result
+})
