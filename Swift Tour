@@ -22,12 +22,38 @@
     }
 }
 4、数组和字典创建
+let修饰的是不能修改的
 （1）数组和字典都直接用中括号"[]"创建
 var shoppingList = ["catfish", "water", "tulips", "blue paint"]
-shoppingList[1] = "bottle of water"
+shoppingList[1] = "bottle of water".  //修改
  
 var occupations = [
     "Malcolm": "Captain",
     "Kaylee": "Mechanic",
 ]
-occupations["Jayne"] = "Public Relations"
+occupations["Jayne"] = "Public Relations"。//可以添加和修改，此处是添加
+
+******************************
+注意：以下数组会崩溃
+var arr01 = ["1","2","3"];
+        arr01[5] = "5";
+	
+（2）定义空数组和空字典(以下不能用let，因为一旦初始化后就不能添加内容了)
+let emptyArray = [String]()
+let emptyDictionary = [String: Float]()
+
+*****************
+思考以下输出（值引用，怎么转成对象引用）：
+class DicAndStu01 {
+    static func componentDicAndArr(){
+        var dic = ["1":"1"];
+        let arr = [dic];
+        var dic1 = arr[0];
+        dic1["2"] = "2";
+        print(arr);  //[["1": "1"]]
+        print(dic1); //["2": "2", "1": "1"]
+        print(dic);  //["1": "1"]
+        dic["3"] = "3";
+        print(arr);  //[["1": "1"]]
+    }
+}
