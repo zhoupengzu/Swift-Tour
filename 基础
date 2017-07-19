@@ -1,0 +1,25 @@
+swift新增了一些基础数据类型：Int、Double、Float、Bool、String，集合：Array、Set、Dictionary（貌似都是值引用，不是对象引用）
+除此外，还提供了：
+（1）tuple（元祖）,一个可以一次性传递一组数据的类型；
+（2）可选类型。它的使用和OC中的nil相似，但是它更强大，不止用于类或者对象，可以用于任何类型。
+
+一、常量和变量（let、var）
+1、常量和变量在使用前必须声明
+2、常量一旦被赋值，则在后续不允许再次赋值或者修改
+3、声明时可以注明类型
+let或者var 变量名：（空格）类型 
+4、常量和变量的名字几乎可以是任意字符，包括Unicode码
+对于保留字或者关键词，可以用反单引号引起来，如：let `if` = 3;
+
+二、整数（Integers）
+使用Int 和 UInt 即可，最小为：Int.min，最大为：Int.max，它会根据平台的位数，自动转换为Int32、Int64、UInt32、UInt64等
+
+三、浮点数（Float-Point Numbers）
+Double 和 Float。
+注：对于没有明确指明类型的小数，swift都会推断为Double。
+
+四、别名（Type Aliases）
+关键词：typealias,如：typealias AudioSample = UInt16，则后面就可以直接使用AudioSample表示UInt16了
+
+五、元祖（tuples）
+元祖中的类型是多样的，个数是不定的
