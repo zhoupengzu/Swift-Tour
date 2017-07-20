@@ -1,0 +1,39 @@
+swift提供了三种集合：数组Array、字典Dictionary和Set
+一、Array
+1、两个数组组合
+（1）直接用+号将两个数组连起来即可，但是两个数组的类型必须相同
+class Array01{
+//    let arr: Array = [Int]();
+//    let arr2: Array = Array<Int>();
+    static func concatTwoArray(){
+        var arr1 = [Int]();
+        arr1.append(6);
+        arr1.append(8);
+
+        var arr2 = [String]();
+        arr2.append("1");
+        arr2.append("2");
+
+        let arr3 = [1,2,3];
+        let arr4 = [1.1,2.2,3]; //let arr4: [Double] = [];
+
+        print(arr1 + arr3);
+//        print(arr1 + arr2); //error
+//        print(arr1 + arr4); //error
+    }
+}
+
+2、count用来获取当前数组中的个数；isEmpty用来判断数组里是否为空，即个数是否为0；append向数组末尾添加一个值；insert向数组中某个位置插入一个值；
+remove从数组中移除；removeLast移除最后一个（比起remove不用担心是否越界）
+
+3、可以用下标语法来一次性修改多个值
+
+4、数组遍历
+（1）for item in shoppingList {
+    print(item)
+}
+
+（2）
+for (index, value) in shoppingList.enumerated() {
+    print("Item \(index + 1): \(value)")
+}
