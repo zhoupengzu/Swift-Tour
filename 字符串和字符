@@ -1,0 +1,50 @@
+一个字符串是由一系列的字符组成的；一个字符串可以以很多种形式存储，包括字符集合也可以存储;
+
+1、isEmpty方法
+用来判断一个字符串是否为空。需要注意可空的字符串的使用
+class String01{
+    static func isEmptyStr(){
+        let str = "";
+        if str.isEmpty{
+            print("the string is empty!");
+        }
+    }
+    static func isEmptyStr01(){
+        let str: String? = nil;
+//        if str?.isEmpty {    //error,需要拆包或者绑定或者与nil做比较
+//            print("the string2 is empty");
+//        }
+        if str?.isEmpty == nil {
+            print("the strng2 is empty");
+        }
+        if let _ = str?.isEmpty{
+            print("The string 2 is empty");
+        }
+    }
+}
+
+2、String是值类型（区分于引用类型）
+
+3、字符串和字符的拼接
+（1）、字符串拼接（+=只能用于两个已经分别定义过的变量）
+let constantString = "Highlander"
+constantString += " and another Highlander"
+// this reports a compile-time error - a constant string cannot be modified
+
+let string1 = "hello"
+let string2 = " there"
+var welcome = string1 + string2
+var instruction = "look over"
+instruction += string2。 //ok
+
+（2）、字符拼接到字符串append
+let exclamationMark: Character = "!"
+welcome.append(exclamationMark)
+// welcome now equals "hello there!"
+
+4、字符串的插值用法
+let multiplier = 3
+let message = "\(multiplier) times 2.5 is \(Double(multiplier) * 2.5)"
+// message is "3 times 2.5 is 7.5"
+
+5、count，用来计算某个字符串中字符的个数
