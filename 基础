@@ -23,3 +23,33 @@ Double 和 Float。
 
 五、元祖（tuples）
 元祖中的类型是多样的，个数是不定的
+1、定义
+有一个值，用小括号阔起来的，里面的多个值是用逗号分开的，这个值就是元祖：
+let http404Error = (404, "Not Found")
+2、使用
+（1）可以直接用对应的变量设置，见useTuple01（）
+（2）可以只对需要使用的变量定义变量名字，不需要的用下划线代替即可，但是元祖值有几个，就需要前后个数对应起来，见useTuple02（）
+（3）可以直接使用index访问，index从0开始，见defineTuples（）
+（4）可以在定义元祖值的时候就直接指定好名字，有点儿类似于字典，见useTuple03（）
+class Tuples01{
+    static func defineTuples(){
+        let tuple01 = (404,"Not Found");
+        print(tuple01.0);
+    }
+    static func useTuple01(){
+        let (code,des) = (404,"Not Found");
+        print(code);
+    }
+    static func useTuple02(){
+        let (code,_) = (404,"Not Found");
+//        let (code: Int,_) = (404,"Not Found");  //error
+//        let (code,_) = (404,"Not Found","more");  //error
+        print(code);
+    }
+    static func useTuple03(){
+        let net = (code:404,des:"Not Found");
+        let net1 = (_:404,des:"Not Found");
+        print(net.des);
+        print(net1.des);
+    }
+}
