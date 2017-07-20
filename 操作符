@@ -1,0 +1,45 @@
+一、元祖的比较
+注意点：
+1、左右两个元祖的个数必须相同，否则会报错；
+2、是一个一个比较，一旦有了结果，就不再进行后面的比较
+class Tuples02{
+    static func compareTuple(){
+        let tuple01 = (2,4);
+        let tuple02 = (3,5,5);
+        if tuple01 < tuple02 {   //这里会报错，因为左右对比的个数不一样
+            print(tuple02);
+        }else{
+            print(tuple01);
+        }
+    }
+}
+
+(1, "zebra") < (2, "apple")   // true because 1 is less than 2; "zebra" and "apple" are not compared
+(3, "apple") < (3, "bird")    // true because 3 is equal to 3, and "apple" is less than "bird"
+(4, "dog") == (4, "dog")      // true because 4 is equal to 4, and "dog" is equal to "dog"
+
+二、区间操作符
+let names = ["Anna", "Alex", "Brian", "Jack"]
+1、闭合区间操作符（a...b）
+步长为1，包括a和b；
+
+2、半开区间操作符（a..<b）
+
+3、One-Sided Ranges（单边）
+for name in names[2...] {
+    print(name)
+}
+// Brian
+// Jack
+ 
+for name in names[...2] {
+    print(name)
+}
+// Anna
+// Alex
+// Brian
+for name in names[..<2] {
+    print(name)
+}
+// Anna
+// Alex
