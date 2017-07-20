@@ -53,3 +53,32 @@ class Tuples01{
         print(net1.des);
     }
 }
+
+六、可选类型（Optionals）（？和！）
+1、使用场景
+该变量可能为空。表示两种可能性：完全没值，真正为空；有值。
+2、值
+如果没值，或者类型转换失败，其值为nil，如：
+class Optional01{
+    static func optionalConvert(){
+        let str = "Hello World";
+        let result: Int? = Int(str);
+        print(result);  //nil
+    }
+}
+
+注：swift中的nil和OC中的nil不同。OC中的nil十个指针；swift中的nil表示这个值为空，或者说没值
+
+3、如何判断一个变量是否有值，或者说是否为nil
+（1）可选值绑定
+使用if来判断，如果有值，则可以强制解包，可以一次性写多个，如：
+let str = "Hello World";
+let result: Int? = Int(str);
+if let isNil = result{...}else{...}
+
+if let firstNumber = Int("4"), let secondNumber = Int("42"), firstNumber < secondNumber && secondNumber < 100 {
+    print("\(firstNumber) < \(secondNumber) < 100")
+}
+
+（2）直接和nil做判断（==、！=）如：
+if result == nil{...}else{...}
