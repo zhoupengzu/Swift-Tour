@@ -1,0 +1,16 @@
+一、in-out参数
+方法的参数默认都是不可变的，如果在方法內修改参数值会报错；
+如果想要改变值，则需要使用关键词inout修饰;
+一旦该参数被inout修饰了，则实参必须是可变的，而且传递的是其该变量的地址，如：
+var temp = 10;
+FunctionInOut01.changeParameter02(parameter: &temp);
+print(temp);
+
+class FunctionInOut01{
+    static func changeParameter01(parameter: Int){
+//        parameter = parameter + 1;//error
+    }
+    static func changeParameter02(parameter: inout Int){
+        parameter = parameter + 1;//error
+    }
+}
