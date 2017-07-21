@@ -1,0 +1,96 @@
+语法：{(parameters)->return type in
+  ....
+}
+
+一、闭包
+
+二、尾闭包
+当一个函数处在该方法的最后一个参数位置时，可以把它单独出去
+class Closure01{
+    static func systemClosure(){
+        let arr1 = [0,1,33,42,12,23,12,11,2];
+        let arr2 = arr1.sorted { (a, b) -> Bool in
+            return a > b;
+        };
+        //或者
+//        let arr2 = arr1.sorted(by:{ (a, b) -> Bool in
+//            return a > b;
+//        });
+        //或者
+        let arr3 = arr1.sorted(by: sortFunction);
+        //或者
+//        let arr4 = arr1.sorted(by: >);
+        print(arr1);
+        print(arr2);
+        print(arr3);
+    }
+    static func sortFunction(a: Int,b: Int) -> Bool{
+        return a < b;
+    }
+    static func trailClosureFunction(){
+        func trailClosure(a: Int,b: (Int)->Int){
+
+        }
+        //正常调用
+        trailClosure(a: 10, b: {(b1)-> Int in
+            return 0;
+        });
+        //尾闭包
+        trailClosure(a: 10){(b: Int)-> Int in
+            return 20;
+        };
+    }
+    static func closureFunction01(){
+        func closure01(a: Int,b: (Int,String)->Int,c:Int){
+
+        }
+        closure01(a: 10, b: { (b1, b2) -> Int in
+            return 0;
+        }, c: 40);
+    }
+}
+
+三、值的捕获
+四、闭包是引用类型，不是值类型
+五、@escaping
+用来修饰闭包是逃逸的还是非逃逸的，在swift3.0之前默认是逃逸的，而在之后默认的都是非逃逸的。
+逃逸：调用的地方超过了这函数的范围；非逃逸：在函数结束前调用
+var completionHandlers:[()->Void]=[];
+func someFunctionWithEscapingClosure(completionHandler:@escaping ()->Void){ //不加@escaping会报错
+    completionHandlers.append(completionHandler);
+}
+
+func someFunctionWithNoneEscapingClosure(completionHandler:()->Void){
+    completionHandler();
+}
+
+六、自动闭包@autoclosure，适用于无参数的闭包
+自动闭包延迟了方法的运行，它只会在用到的时候运行，这很有用。
+var customersInLine = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+print(customersInLine.count)
+// Prints "5"
+ 
+let customerProvider = { customersInLine.remove(at: 0) }
+print(customersInLine.count)
+// Prints "5"
+ 
+print("Now serving \(customerProvider())!")
+// Prints "Now serving Chris!"
+print(customersInLine.count)
+// Prints "4"
+
+1、等价替换
+// customersInLine is ["Alex", "Ewa", "Barry", "Daniella"]
+func serve(customer customerProvider: () -> String) {
+    print("Now serving \(customerProvider())!")
+}
+serve(customer: { customersInLine.remove(at: 0) } )
+// Prints "Now serving Alex!"
+
+可以替换为：
+// customersInLine is ["Ewa", "Barry", "Daniella"]
+func serve(customer customerProvider: @autoclosure () -> String) {
+    print("Now serving \(customerProvider())!")
+}
+serve(customer: customersInLine.remove(at: 0))
+// Prints "Now serving Ewa!"
