@@ -4,7 +4,7 @@
 一旦该参数被inout修饰了，则实参必须是可变的，而且传递的是其该变量的地址，如：
 var temp = 10;
 FunctionInOut01.changeParameter02(parameter: &temp);
-print(temp);
+print(temp); //11
 
 class FunctionInOut01{
     static func changeParameter01(parameter: Int){
