@@ -1,0 +1,107 @@
+swift提供了很多种控制流，主要有：while循环、if、guard、switch、for-in
+
+一、for-in循环
+1、a...b
+2、a..<b
+3、for-in
+4、stride（）
+class ForLoop01{
+    static func forLoopSteps(){
+        var oriArr: Array<Int> = [];
+        for index in 0...100{
+            oriArr.append(index);
+        }
+        for index in stride(from: 0, to: 100, by: 5){ //不包含100
+            print(index);
+        }
+        for index in stride(from: 0, through: 100, by: 5){ //包含100
+            print(index);
+        }
+    }
+}
+
+二、while循环
+
+三、if
+
+四、switch
+与以往不同，switch的每个case和default不再需要break；case比较类型和方式也多种多样
+1、对于不同的case想要有相同的操作，可以将两个case的值合并到一处，并用逗号分隔开即可
+let anotherCharacter: Character = "a"
+switch anotherCharacter {
+case "a", "A":
+    print("The letter A")
+default:
+    print("Not the letter A")
+}
+// Prints "The letter A"
+
+2、间距匹配
+let approximateCount = 62
+let countedThings = "moons orbiting Saturn"
+let naturalCount: String
+switch approximateCount {
+case 0:
+    naturalCount = "no"
+case 1..<5:
+    naturalCount = "a few"
+case 5..<12:
+    naturalCount = "several"
+case 12..<100:
+    naturalCount = "dozens of"
+case 100..<1000:
+    naturalCount = "hundreds of"
+default:
+    naturalCount = "many"
+}
+print("There are \(naturalCount) \(countedThings).")
+// Prints "There are dozens of moons orbiting Saturn."
+
+3、元祖匹配
+let somePoint = (1, 1)
+switch somePoint {
+case (0, 0):
+    print("\(somePoint) is at the origin")
+case (_, 0):
+    print("\(somePoint) is on the x-axis")
+case (0, _):
+    print("\(somePoint) is on the y-axis")
+case (-2...2, -2...2):
+    print("\(somePoint) is inside the box")
+default:
+    print("\(somePoint) is outside of the box")
+}
+// Prints "(1, 1) is inside the box"
+
+4、数值绑定
+let somePoint = (1, 1)
+switch somePoint {
+case (0, 0):
+    print("\(somePoint) is at the origin")
+case (_, 0):
+    print("\(somePoint) is on the x-axis")
+case (0, _):
+    print("\(somePoint) is on the y-axis")
+case (-2...2, -2...2):
+    print("\(somePoint) is inside the box")
+default:
+    print("\(somePoint) is outside of the box")
+}
+// Prints "(1, 1) is inside the box"
+
+5、where条件
+
+let yetAnotherPoint = (1, -1)
+switch yetAnotherPoint {
+case let (x, y) where x == y:
+    print("(\(x), \(y)) is on the line x == y")
+case let (x, y) where x == -y:
+    print("(\(x), \(y)) is on the line x == -y")
+case let (x, y):
+    print("(\(x), \(y)) is just some arbitrary point")
+}
+// Prints "(1, -1) is on the line x == -y"
+
+五、guard
+guard 条件 else{...}
+与if相类似，只不过这里的else必须要有
