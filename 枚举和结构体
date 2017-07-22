@@ -1,6 +1,60 @@
 五、枚举和结构体
 1、枚举
-和OC不同，枚举可以有自己的方法、可以指定枚举类型（不仅仅支持整数）;
+和OC不同，枚举可以有自己的方法、可以指定枚举类型（不仅仅支持整数，只要是值类型的都可以，引用类型的不可以）;
+==================================
+枚举可以像类一样，有自己的初始化方法，用来初始化一些case；可以有计算属性、可以有自己的操作方法、
+可以被继承和继承，可以被扩展、也可以遵守协议;
+枚举的默认值也不会像OC一样，默认是从0开始，然后是1，2，3。在swift中，只有在指明了枚举的类型的时候，才可以设置默认值，才会有默认值，也才可以使用rawValue
+获取枚举值（可以试着将下面的Int去了试试）
+
+命名：推荐和类的命名一样，以单词首字母大写开始
+类型：如果指定了类型，则所有的case类型必须统一为该类型；如果没有指定类型，则每个case的值的类型可以随意，如：
+enum Enumeration03{
+    case request(code:Int,status:Bool);
+    case result(result: Dictionary<String,String>);
+    case others(String);
+   // case others(String?); 表示可以设置nil，上面的不能设置nil
+    case others01;
+
+    func test(){
+//        Enumeration03.others = "haha";  //这样设置有错误
+        print(Enumeration03.others);
+        Enumeration03.others("hahah");
+        print(Enumeration03.others);
+    }
+}
+let haha = Enumeration03.others("haha");
+haha.test();
+print(haha); //others("haha")
+switch haha{
+case Enumeration03.others(let value):
+    print(value);  //haha
+case Enumeration03.othersNil(let value):
+    print(value);  //haha
+default:
+    print("default");
+}
+
+初始化：可以直接用初始化指定某个值，单前提是该枚举值必须有统一的指定类型
+enum Planet: Int {
+    case mercury = 1, venus, earth, mars, jupiter, saturn, uranus, neptune
+}
+let possiblePlanet = Planet(rawValue: 7)
+// possiblePlanet is of type Planet? and equals Planet.uranus
+
+枚举嵌套：关键词indirect，用在case之前，表示该case可以嵌套自己；用在enum之前，表示该枚举里的每个case都可以嵌套自己
+enum Enumeration04{
+    case number(Int);
+//    case addAddition(Enumeration04,Enumeration04); //这么写会报错
+    case addAddition(NestEnumeration);  //这么写是可以的
+    indirect case nextAdd(Enumeration04,Enumeration04); //这么写也是对的
+
+}
+
+enum NestEnumeration{
+
+}
+==================================
 获取当前枚举值可以调用rawValue属性
 enum Rank: Int{
     case ace = 1
