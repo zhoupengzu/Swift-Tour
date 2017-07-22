@@ -75,7 +75,19 @@ class Observer01{
 }
 
 五、类属性
+主要是用static和class修饰，则可以直接用类名调用，区别在于：class修饰的不能被子类继承。如：
+class ClassType01{
+    static var name: String = "super";
+//    class var age: Int = 20; //报错，说class修饰的属性不能被子类继承
+}
 
-let observer = Observer01();
-observer.name = "change";
-print(observer.computed);
+class ClassType01Sub: ClassType01{
+    static func lookSuperVar(){
+        print(ClassType01.name);
+//        print(ClassType01.age);
+    }
+}
+
+
+
+
