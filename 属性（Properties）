@@ -1,0 +1,81 @@
+属性分为计算属性和存储属性。
+计算属性只有类和结构体有，枚举没有；
+存储属性类、结构体和枚举都有。
+
+对于存储属性，只要不是可选类型的，都需要有默认值，默认值可以在初始化的时候赋值，也可以在定义的时候就赋值，否则编译不能通过
+
+一、存储属性
+
+二、懒存储属性
+该属性的值不会在初始化的时候就被计算，而是在其第一次使用的时候才会知道。
+使用时只需要在熟悉前添加lazy关键字就可以了
+且只有var修饰的存储属性才能用lazy修饰；
+
+对于lazy修饰的存储属性，如果在多线程里，不能保证其只能被初始化一次。
+
+三、计算属性
+var computed: String{
+  get {...}
+  set {...}
+}
+
+1、如果是计算属性，则不再需要初始化
+struct Structure02{
+    var name: String = "存储属性";
+    var getName: String {
+        get{
+            return "计算属性";
+        }
+        set {
+            self.name = newValue;
+        }
+    }
+    static func lookInit(){
+        let _ = Structure02();
+        let _ = Structure02(name: "这里只需要赋值一个");
+    }
+}
+
+2、只读计算属性
+不需要写set即可；或者直接return即可
+struct Structure02{
+    var name: String = "存储属性";
+    var getName: String {
+        //get{
+            return "计算属性";
+       // }
+    }
+    static func lookInit(){
+        let _ = Structure02();
+        let _ = Structure02(name: "这里只需要赋值一个");
+    }
+}
+
+四、属性观察者(要注意它和计算属性的写法区别)
+可以观察值的变化。可以用在任何存储属性上，除了lazy存储属性之外
+关键词：willset 和 didset
+willset会传递一个newValue参数，作为即将赋值；didset会传递一个旧的值
+class Observer01{
+    var name: String = "观察者"{
+        willSet {
+            print("The new value to set is \(newValue)");  //The new value to set is change
+        }
+        didSet {
+            print("The old Value is \(oldValue)"); //The new value to set is change
+        }
+    }
+    var computed: String{
+        get {
+            return self.name;
+        }
+        set {
+            self.name = newValue;
+        }
+    }
+}
+
+五、类属性
+
+let observer = Observer01();
+observer.name = "change";
+print(observer.computed);
