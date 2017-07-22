@@ -1,0 +1,27 @@
+一、类和结构体的共同点
+1、定义属性去储存值
+2、提供相应的方法去实现某些功能
+3、提供下标语法去获取（？？？？）
+4、提供初始化语法去实现初始化，设置初始值
+5、可扩展
+6、可以遵守某些协议
+
+二、类和结构体的不同（类独有的一些东西）
+1、可以继承
+2、Type casting enables you to check and interpret the type of a class instance at runtime.
+3、可以通过析构函数释放空间
+
+三、类和结构体的语法
+class SomeClass{...}
+struct SomeStructure{...}
+
+四、结构体
+1、初始化
+struct SomeStructure{
+  var width = 0;
+  var height = 0;
+}
+//上述width和height都被称为存储属性
+初始化的两种方法：
+let structure = SomeStructure();
+let structure = SomeStructure(width:20,height:20);  //成员参数初始化，这种存在的前提是结构体没有实现结构体的初始化函数或者实现的初始化函数恰好和这里的一样
