@@ -55,6 +55,28 @@ swift中，子类默认是不会继承父类的构造器，只会在特定的安
 六、构造器自动继承
 假设当前子类的所有非可选属性都被设置了默认值，则遵循以下两条：
 第一条：如果当前子类没有定义任何指定构造器，则它会默认继承父类的指定构造器
-第二条：如果当前子类重写了所有的父类的指定构造器，则默认继承了父类的便利构造器
+第二条：如果当前子类重写了所有的父类的指定构造器（包括父类的指定构造器被子类继承重写为便利构造器也算），则默认继承了父类的便利构造器
+
+七、可失败构造器
+在init后面添加一个问号？，然后在函数中return nil；
+场景：当在初始化的时候有参数不满足要求的时候即可返回nil，此时的构造器就必须是可失败的；
+父类的可失败构造器在子类中可以被重写为不可失败的（如指定构造器或者便利构造器）
+
+八、不可失败构造器
+在init后面添加感叹号！即可
+
+九、必须构造器
+则每个子类都必须实现，且子类不能把require丢失
+class SomeClass {
+    required init() {
+        // initializer implementation goes here
+    }
+}
+class SomeSubclass: SomeClass {
+    required init() {
+        // subclass implementation of the required initializer goes here
+    }
+}
+
 
 
