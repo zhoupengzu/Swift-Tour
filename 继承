@@ -1,0 +1,35 @@
+一、属性继承
+无论是存储属性还是计算属性，子类继承时都需要名字统一、表明类型，书写形式为计算属性样式；
+如果父类的属性是只读的，子类可以通过继承实现读和写；如果父类是读写的，则子类只能继承为读写；
+如下：
+class Inheritance01{
+    var superName: String = "父类";
+    var age: Int {
+        return 20;
+    }
+}
+
+class subClass: Inheritance01{
+    override var superName: String{
+        get {
+            return super.superName;
+        }
+        set {
+            super.superName = newValue;
+//            self.superName = newValue;  //这么写会崩溃，所以对于属性直接继承就可以，没必要复写，也可以调用super
+        }
+    }
+    override var age: Int{
+        get {
+            return 10;
+        }
+        set {
+            self.superName = "30";
+        }
+    }
+}
+
+二、阻止子类继承（final）
+
+三、属性观察者重写
+不能为继承的常量存储属性和只读计算属性添加观察者
