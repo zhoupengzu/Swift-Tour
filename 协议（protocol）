@@ -1,5 +1,6 @@
 协议可以被类、结构体和枚举遵守，多个协议之间使用逗号分开即可;
 ** 协议中的构造器不能使用convenience
+** 协议之间可以继承
 语法：
 protocol SomeProtocol {
     // protocol definition goes here
@@ -123,3 +124,28 @@ class BaseSubClass: BaseClass,BaseProtocol{
 
 四、协议作为类型
 类似于delegate
+
+五、只能是类遵守的协议
+在协议后面添加AnyObject
+protocol BaseProtocol: AnyObject{  //添加AnyObject，表明该协议只能被类遵守，值类型(枚举和结构体)的不能遵守
+    init();
+    init?(name:String);
+}
+
+六、一个变量遵守多个协议的写法
+该
+protocol Named {
+    var name: String { get }
+}
+protocol Aged {
+    var age: Int { get }
+}
+struct Person: Named, Aged {
+    var name: String
+    var age: Int
+}
+func wishHappyBirthday(to celebrator: Named & Aged) {
+    print("Happy birthday, \(celebrator.name), you're \(celebrator.age)!")
+}
+let birthdayPerson = Person(name: "Malcolm", age: 21)
+wishHappyBirthday(to: birthdayPerson)
