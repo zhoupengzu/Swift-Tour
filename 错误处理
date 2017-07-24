@@ -1,0 +1,25 @@
+Swift中用遵守Error协议的类型的值来表示；
+方法内部有error时，通过throw关键字抛出，交给相应的方法处理
+Swift 中有 4 种处理错误的方式。你可以把函数抛出的错误传递给调用此函数的代码、用 do-catch 语句处理错 误、将错误作为可选类型处理、或者断言此错误根本不会发生
+
+在方法列表后面添加throws关键字，用以将错误继续抛出
+func canThrowErrors() throws -> String
+func cannotThrowErrors() -> String
+
+一、使用do-catch处理
+do {
+    try expression
+    statements
+} catch pattern 1 {
+    statements
+} catch pattern 2 where condition {
+  statements 
+}
+
+**************************************
+指定清理操作（延迟执行）
+可以使用 defer 语句在即将离开当前代码块时执行一系列语句。该语句让你能执行一些必要的清理工作，不管是
+以何种方式离开当前代码块的——无论是由于抛出错误而离开，还是由于诸如 return 或者 break 的语句。例如，
+你可以用 defer 语句来确保文件描述符得以关闭，以及手动分配的内存得以释放。
+defer 语句将代码的执行延迟到当前的作用域退出之前。该语句由 defer 关键字和要被延迟执行的语句组成。延 迟执行的语句不能包含任何控制转移语句，例如 break 或是 return 语句，或是抛出一个错误。延迟执行的操作会 按照它们被指定时的顺序的相反顺序执行——也就是说，第一条 defer 语句中的代码会在第二条 defer 语句中的 代码被执行之后才执行，以此类推
+
