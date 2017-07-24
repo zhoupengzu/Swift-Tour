@@ -1,0 +1,34 @@
+swift使用is和as来检测和转换类型，同时它们也可以检测是否遵循了某个协议
+语法：let someInstance = SomeClass();
+if someInstance is SomeOtherClass{}
+let trueInstance = someInstance as!(or as?) SomeOtherClass
+
+一、is
+使用is来检查某个类的实例对象是否是该类或者其子类，类似于isKindOfClass
+
+二、向下转换（使用as！或者 as？）
+因为向下转换时有可能会失败，所以在不确定的时候建议使用as？，如果是确定的，则使用as！，否则如果转换错误会出现运行时错误，然后崩溃。
+
+******************
+as用来向上转换，或者类型匹配，或者消除歧义（看下面如果不加as Double打印是什么）
+class Animal {}
+class Cat: Animal {}
+let cat = Cat()
+let animal = cat as Animal
+
+switch animal {
+case let cat as Cat:
+    print("如果是Cat类型对象，则做相应处理")
+case let dog as Dog:
+    print("如果是Dog类型对象，则做相应处理")
+default: break
+}
+
+let `as` = (41 / 2) as Double;
+print(`as`); //20.5
+print(41 / 2,Double(41 / 2),(41 / 2) as Double); //20 20.0 20.5
+******************
+
+三、Any和AnyObject（需要用到as）
+swift 为不确定的类型提供了两种特定类型：
+Any用于表示对象类型；AnyObject表示类类型；
