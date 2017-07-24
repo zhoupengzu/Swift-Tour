@@ -1,0 +1,45 @@
+一、解决强引用环
+有两种方式：弱引用和非拥有对象（无主引用）
+当其他的实例有更短的生命周期时，使用弱引用，也就是说，当其他实例析构在先时；当其他实例有相同的或者更长生命周期时，请使用无主引用
+
+1、弱引用（weak）
+class Person {
+    let name: String
+    init(name: String) { self.name = name }
+    var apartment: Apartment?
+    deinit { print("\(name) is being deinitialized") }
+}
+ 
+class Apartment {
+    let unit: String
+    init(unit: String) { self.unit = unit }
+    weak var tenant: Person?
+    deinit { print("Apartment \(unit) is being deinitialized") }
+}
+
+***** 当 ARC 设置弱引用为 nil 时，属性观察不会被触发。********
+
+2、无主引用（unowned）
+无主引用被期望永远有值，所以它修饰的不能是可选类型的，因为可选类型的会在运行时被赋值为nil
+使用无主引用，你必须确保引用始终指向一个未销毁的实例。如果你试图在实例被销毁后，访问该实例的无主引用，会触发运行时错误
+
+class Customer {
+    let name: String
+    var card: CreditCard?
+    init(name: String) {
+        self.name = name
+    }
+    deinit { print("\(name) is being deinitialized") }
+}
+ 
+class CreditCard {
+    let number: UInt64
+    unowned let customer: Customer
+    init(number: UInt64, customer: Customer) {
+        self.number = number
+        self.customer = customer
+    }
+    deinit { print("Card #\(number) is being deinitialized") }
+}
+
+二、无主引用以及隐式解析可选属性
