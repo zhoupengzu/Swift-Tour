@@ -59,3 +59,14 @@ struct Stack<Element>: Container {
         return items[i]
     }
 }
+
+五、为关联泛型添加限制
+下面的表明Item必须是继承自Equitable或者是遵守Equatable协议的等等采可以
+protocol Container {
+    associatedtype Item: Equatable
+    mutating func append(_ item: Item)
+    var count: Int { get }
+    subscript(i: Int) -> Item { get }
+}
+
+六、
