@@ -133,7 +133,7 @@ protocol BaseProtocol: AnyObject{  //添加AnyObject，表明该协议只能被�
 }
 
 六、一个变量遵守多个协议的写法
-该
+该变量的类型的几个协议使用&分割开即可
 protocol Named {
     var name: String { get }
 }
@@ -149,3 +149,23 @@ func wishHappyBirthday(to celebrator: Named & Aged) {
 }
 let birthdayPerson = Person(name: "Malcolm", age: 21)
 wishHappyBirthday(to: birthdayPerson)
+
+七、协议的检测，检测是否遵守了某个协议、协议的转换
+依旧是使用is、as！、as？，用法一样
+
+八、可选协议的要求（关键词optional）
+对于可选的协议（不需要类去实现的），可以使用optional修饰；
+协议名之前的@objc和optional前的@objc都不能省略
+使用：
+@objc protocol BaseProtocol: AnyObject{  //添加AnyObject，表明该协议只能被类遵守，值类型(枚举和结构体)的不能遵守
+    init();
+    init?(name:String);  //构造函数不能用optional
+    @objc optional func testOptional();
+}
+
+** 协议可以定义可选要求，遵循协议的类型可以选择是否实现这些要求。在协议中使用 optional 关键字作为前缀 来定义可选要求。
+可选要求用在你需要和 Objective-C 打交道的代码中。协议和可选要求都必须带上 @objc 属 性。
+** 标记 @objc 特性的协议只能被继承自 Objective-C 类的类或者 @objc 类遵循，其他类以及结构体和枚举 均不能遵循这种协议。
+使用可选要求时(例如，可选的方法或者属性)，它们的类型会自动变成可选的。比如，一个类型为
+(Int) -> String 的方法会变成 ((Int) -> String)? 。需要注意的是整个函数类型是可选的，而不是函数的返回值。
+** 协议中的可选要求可通过可选链式调用来使用，因为遵循协议的类型可能没有实现这些可选要求。类似 onalMethod?(someArgument) 这样，你可以在可选方法名称后加上 ? 来调用可选方法
