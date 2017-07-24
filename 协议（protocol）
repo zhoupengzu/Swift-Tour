@@ -169,3 +169,36 @@ wishHappyBirthday(to: birthdayPerson)
 使用可选要求时(例如，可选的方法或者属性)，它们的类型会自动变成可选的。比如，一个类型为
 (Int) -> String 的方法会变成 ((Int) -> String)? 。需要注意的是整个函数类型是可选的，而不是函数的返回值。
 ** 协议中的可选要求可通过可选链式调用来使用，因为遵循协议的类型可能没有实现这些可选要求。类似 onalMethod?(someArgument) 这样，你可以在可选方法名称后加上 ? 来调用可选方法
+
+九、协议的扩展，利用扩展可以实现代码高效利用
+协议可以通过扩展来为遵循协议的类型提供属性、方法以及下标的实现。通过这种方式，你可以基于协议本身来
+实现这些功能，而无需在每个遵循协议的类型中都重复同样的实现，也无需使用全局函数
+
+十、提供默认实现（主要是利用协议的扩展）
+如果协议的扩展里面的函数有默认实现，而遵守该协议的类又实现了该方法，则会调用实现后的方法。
+protocol BaseProtocol01{
+    func ownedFunc() -> String;
+}
+
+class BaseClass01: BaseProtocol01{
+    func ownedFunc() -> String {
+        return "";
+    }
+    func extensionFunc() {
+        print("This is another function");
+    }
+    func accessFunc(){
+        self.extensionFunc();
+    }
+}
+
+extension BaseProtocol01{
+    func extensionFunc(){
+        print("this is a extension function");
+    }
+}
+let base = BaseClass01();
+base.extensionFunc(); //This is another function
+
+十一、给协议添加限制条件
+在扩展协议的时候，可以指定一些限制条件，只有遵循协议的类型满足这些限制条件时，才能获得协议扩展提供 的默认实现。这些限制条件写在协议名之后，使用 where 子句来描述
