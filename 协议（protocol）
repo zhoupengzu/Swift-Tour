@@ -1,4 +1,5 @@
-协议可以被类、结构体和枚举遵守，多个协议之间使用逗号分开即可
+协议可以被类、结构体和枚举遵守，多个协议之间使用逗号分开即可;
+** 协议中的构造器不能使用convenience
 语法：
 protocol SomeProtocol {
     // protocol definition goes here
@@ -9,13 +10,13 @@ class SomeClass: SomeSuperclass, FirstProtocol, AnotherProtocol {
 }
 
 ****** class 修饰的类方法可以被子类重写，static修饰的不可以 ************
-****** class 不能修饰原类的属性，static可以 ************
+****** class 不能修饰原类的存储属性，只能修饰计算属性，static可以 ************
 
 一、属性要求
 协议可以定义实例属性或者类属性，而且它也不明确指出该属性是存储属性还是计算属性，只是指出其需要实现set还是get方法；
-** 对于类属性，用static，不能用class（貌似swift4不允许的）；
+** 对于类属性，用static，在遵守的协议中可以用static，也可以用class修饰该属性；
 ** 如果协议要求属性是可读可写的，那么该属性不能是常量属性或只读的计算型属性。如果协议只要求属性是可读的，那么该属性不仅可以是可读的，如果代码需要的话，还可以是可写的
-** 属性不能是let，只能是var；
+** 协议中属性不能是let，只能是var；
 ** 属性不能只是set，如果是set，则必须还得有get；而有了get则可以不要set
 protocol SomeProtocol {
     var mustBeSettable: Int { get set }
@@ -60,3 +61,65 @@ class ProtocolClass: Protocol01{
         }
     }
 }
+
+二、方法要求
+可以定义实例方法和类方法，和普通方法比起来，不用达括号，不支持给协议中的方法的参数设置默认值。
+** 协议中的类方法不允许用class，只能用static，但是该类方法在遵守协议的类中，可以用static，也可以用class
+** 对于值类型的遵守了的协议，其如果修改self的值（属性），需要mutating；
+
+三、构造函数要求
+在协议中定义的构造函数和在类中定义一样，只是不需要大括号和其中的函数体
+
+1、构造函数在类中的要求
+** 在遵循协议的类中实现构造器，无论是作为指定构造器，还是作为便利构造器。无论哪种情况，你都必须 为构造器实现标上 required 修饰符，
+** 用来保证其所有的子类都实现该构造器，当然如果添加了final修饰，则不再需要required修饰(???????貌似还是需要啊)
+** 子类再实现该构造器，不再需要显示的写明override，系统会自动添加
+** 如果该类的父类和遵守的协议都实现了相同的构造器，则，必须写override
+** 协议中定义的非可失败构造器要求可以通过非可失败构造器( init )或隐式解包可失败构造器( init! )来满足
+class SomeClass: SomeProtocol {
+    required init(someParameter: Int) {
+// 这里是构造器的实现部分
+    }
+}
+
+protocol BaseProtocol{
+    init();
+}
+class BaseClass{
+    init() {
+
+    }
+}
+class BaseSubClass: BaseClass,BaseProtocol{
+    required override init() {
+        super.init();
+    }
+}
+
+2、可失败构造器的要求
+遵循协议的类型可以通过可失败构造器( init? )或非可失败构造器( init )来满足协议中定义的可失败构造器 要求
+protocol BaseProtocol{
+    init();
+    init?(name:String);
+}
+class BaseClass{
+    init() {
+
+    }
+}
+
+class BaseSubClass: BaseClass,BaseProtocol{
+    required override init() {
+        super.init();
+    }
+//    required init(name: String) {
+//
+//    }
+    //或
+    required init?(name: String) {
+
+    }
+}
+
+四、协议作为类型
+类似于delegate
