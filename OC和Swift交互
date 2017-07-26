@@ -71,3 +71,5 @@ returnsUnannotatedValue()->Any!
 takesUnannotatedparameter(value:Any!);
 
 五、可选类型到Nonnullable对象的桥接
+Swift的可选类型桥接到OC对象，取决于该可选类型是否有潜在的、未解包的值（就是说是否有值），
+如果是nil，对应的OC对象就是NSNull实例，否则就是解包后的值
