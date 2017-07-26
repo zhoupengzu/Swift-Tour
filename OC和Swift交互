@@ -33,3 +33,41 @@ class AnyObject01{
 //        temp01 = NSDate();
     }
 }
+
+四、可空性（oc的）和可选性（swift的）
+OC中可以使用可空性注释来描述一个参数、属性或者返回值类型为NULL和nil，关键词是：Nullable和Nonnull，
+或者定义可空性区域：NS_ASSUME_NONNULL_BEGIN和NS_ASSUME_NONNULL_END;
+OC和Swift之间可空性遵守的规则如下：
+**** 如果OC中没有显示的指明其可空性，swift会强制解包
+**** OC中描述为Nonnull的，在Swift中为非可空类型（不用！也不用？）
+**** OC中描述为Nullable的，在Swift中为可选类型（用？）
+
+@property (nullable) id nullableProperty;
+@property (nonnull) id nonNullProperty;
+@property id unannotatedProperty;
+ 
+NS_ASSUME_NONNULL_BEGIN
+- (id)returnsNonNullValue;
+- (void)takesNonNullParameter:(id)value;
+NS_ASSUME_NONNULL_END
+ 
+- (nullable id)returnsNullableValue;
+- (void)takesNullableParameter:(nullable id)value;
+ 
+- (id)returnsUnannotatedValue;
+- (void)takesUnannotatedParameter:(id)value;
+对应的Swift为：
+var nullableProperty: Any?
+var nonNullProperty: Any
+var unannotatedProperty: Any!
+
+func returnsNonNullValue()->Any;
+func takesNonNullParameter(value:Any);
+
+func returnsNullableValue()->Any?;
+func takesNullableParameter(value:Any?);
+
+returnsUnannotatedValue()->Any!
+takesUnannotatedparameter(value:Any!);
+
+五、可选类型到Nonnullable对象的桥接
