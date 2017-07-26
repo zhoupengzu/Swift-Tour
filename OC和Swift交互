@@ -1,0 +1,35 @@
+一、工厂模式和便利构造器
+OC中的工厂模式对应到Swift中会被转为便利构造器
+在OC中：
+UIColor *color = [UIColor colorWithRed:0.5 green:0.0 blue:0.5 alpha:1.0];
+在Swift中：
+let color = UIColor(red: 0.5, green: 0.0, blue: 0.5, alpha: 1.0)
+
+二、属性交互（@property）
+1、OC中的readonly属性，对应Swift中的计算属性的只读
+2、OC中的weak修饰属性，对应Swift中的weak修饰的属性
+3、OC中的assign, copy, strong, or unsafe_unretained修饰的属性，对应Swift中的存储属性
+4、OC中的class修饰的属性，对应Swift中的类属性
+5、OC中的原子属性不会被影射到Swift中，但是从Swift中倒入OC的属性的原子性会被保证存在
+6、OC中的存取器（getter和setter）都会被忽略
+7、OC中id对应Swift中的Any
+
+三、动态查找
+AnyObject只能修饰对象引用类型的；
+如果想利用动态查找，则需要将该变量修饰为AnyObject，此时该变量能调用什么方法，是什么类型的都只能在运行期间知道，可以考虑使用可选类型来防止程序崩溃
+
+class AnyObject01{
+    func testAnyObject01(){
+        var temp: AnyObject = NSString();
+        temp = NSDate();
+//        print(temp.character(at: 5));  //这么写肯定会崩溃
+        let tempChar = temp.character?(at: 5);   //这么是可以的
+        if tempChar == nil {
+            print("fail");
+        }
+        //以下都是错误写法
+//        var temp01: AnyObject = "";
+//        var temp01: Any = NSString();
+//        temp01 = NSDate();
+    }
+}
